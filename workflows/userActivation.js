@@ -1,5 +1,8 @@
 module.exports = {
   *handle(user) {
+    // to be used in `onEvent` function
+    this.user = user
+
     // Waiting for ACTIVATION_WAIT_1 seconds
     yield this.wait.for(1 * process.env.ACTIVATION_WAIT_1);
 
@@ -33,11 +36,11 @@ module.exports = {
   *onEvent(name, ...data) {
     if (name === "userActivated") {
       // Send an email to congratulate the user and give him resources for real examples.
-      this.run.task('SlackUserActivated', `${user.email} is actived :)`);
+      this.run.task('SlackUserActivated', `${this.user.email} is actived :)`);
 
       // Send an email to congratulate the user and give him resources for real examples.
       this.run.task('SendEmail', {
-        to: user.email,
+        to: this.user.email,
         subject: 'Congrats!',
         content: 'Look at our advanced examples...'
       })
