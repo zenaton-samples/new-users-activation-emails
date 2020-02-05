@@ -1,12 +1,38 @@
-# Zenaton Project Boilerplate
+# Nurturing A Non-Activated User 
 
-This is an example of Zenaton project. It can be used as a starter to your own project. 
+Here is a sample Zenaton project that sends emails to a new user, while he/she is not activated. This workflow should be dispatched typically after registration and will complete after user activation or by reaching the end of the emails' sequence.
+
+Note: the task that sends emails is fake but can easily be coded using the API of your preferred email provider.
+
+## Workflow logic
+
+Step by step, the workflow logic is:
+
+- wait for ACTIVATION_WAIT_1 seconds
+- send an email about documentation
+- wait for ACTIVATION_WAIT_2 seconds
+- send an email proposing to setup a call
+- wait for ACTIVATION_WAIT_3 seconds
+- send an email asking for feedback
+
+If a "userActivated" event is received:
+- send a message to Slack
+- send an email suggesting advanced examples
+- terminate the workflow.
+
+This flowchart shows a visual representation of the workflow tasks.
+
+![Workflow chart](/doc/images/user-activation.png)
+
+Notes:
+- process.env.ACTIVATION_WAIT_n is multiplied by 1 to convert a string to an integer
+- in `onEvent` function, the tasks are run without yield (in background) - this is to terminate the workflow immediately. 
 
 ## Development
 
 The `boot.js` file is where you tell the Zenaton Agent where to find - by name - the source code of your tasks and workflows.
 
-> If you add a task or a workflow to your project, do not forget to update the `boot.js` file.
+> If you add a task or a workflow to this project, do not forget to update the `boot.js` file.
 
 Look at Zenaton documentation to learn how to implement [workflows](https://docs.zenaton.com/workflows/implementation/) and [tasks](https://docs.zenaton.com/tasks/implementation/).
 
@@ -58,15 +84,16 @@ Whatever your installation method, you should see that a new Agent is listening 
 
 ## Dispatching Tasks and Workflows
 
-Tasks and workflows can be dispatched  by name from everywhere using the [Zenaton API](https://docs.zenaton.com/client/graphql-api/) or our [Node.js SDK](https://github.com/zenaton/zenaton-node).
+Tasks and workflows can be dispatched by name from everywhere using the [Zenaton API](https://docs.zenaton.com/client/graphql-api/) or our [Node.js SDK](https://github.com/zenaton/zenaton-node).
 
 You can use also the UI of our [example app](https://github.com/zenaton/nodejs-example-app). After installation, you can (optionaly) add your workflows and some examples of input and event in the `public/config.json` file. eg.
 ````json
 {
   "workflows": [
     {
-      "name": "HelloWorld",
-      "input": [ "Me" ],
+      "name": "UserActivation",
+      "input": [ {"email": "john.doe@gmail.com"}],
+      "event": { "name": "userActivated", "data": []},
     }
   ]
 } 
@@ -75,4 +102,4 @@ You can use also the UI of our [example app](https://github.com/zenaton/nodejs-e
 
 ## Monitoring Tasks and Worklows Processing
 
-Look at your [dashboard](https://app.zenaton.com/workflows) (if you do not see your dispatched tasks or workflows, please check that you have selected the right application and environment).
+Look at your [dashboard](https://app.zenaton.com/workflows/) (if you do not see your dispatched tasks or workflows, please check that you have selected the right application and environment).
