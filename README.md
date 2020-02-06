@@ -84,7 +84,35 @@ Whatever your installation method, you should see that a new Agent is listening 
 
 ## Dispatching Tasks and Workflows
 
+### Using Zenaton API 
 Tasks and workflows can be dispatched by name from everywhere using the [Zenaton API](https://docs.zenaton.com/client/graphql-api/) or our [Node.js SDK](https://github.com/zenaton/zenaton-node).
+
+You can test it from your command line interface:
+
+Dispatching a "UserActivation" workflow: 
+
+````bash
+curl -X POST https://gateway.zenaton.com/graphql \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <API_TOKEN> \
+  -d '{"query":"mutation($input: DispatchWorkflowInput!) { dispatchWorkflow(input: $input) { id } }","variables":{"input":{"appId":"<APP_ID>","environment":"dev","name":"UserActivation","input":"[{\"email\":\"foo@example.com\"}]"}}}'
+````
+
+> Do not forget to replace `<APP_ID>` and `<API_TOKEN>` by your Zenaton AppId and api token. 
+
+Sending a "userActivated" event to this workflow: 
+````bash
+curl -X POST https://gateway.zenaton.com/graphql \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <API_TOKEN> \
+  -d '{"query":"mutation($input: SendEventToWorkflowsInput!) { sendEventToWorkflows(input: $input) { status } }","variables":{"input":{"appId":"<APP_ID>","environment":"dev","name":"userActivated","data":"[]","selector":{"id":"<WORKFLOW_ID>"}}}}'
+````
+
+> Do not forget to replace `<APP_ID>` and `<API_TOKEN>` by your Zenaton AppId and api token. And <WORKFLOW_ID> by your workflow's id that you have received when dispatched.
+
+### Example App 
 
 You can use also the UI of our [example app](https://github.com/zenaton/nodejs-example-app). After installation, you can (optionaly) add your workflows and some examples of input and event in the `public/config.json` file. eg.
 ````json
