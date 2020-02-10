@@ -114,7 +114,7 @@ curl -X POST https://gateway.zenaton.com/graphql \
 
 ### Example App 
 
-You can use also the UI of our [example app](https://github.com/zenaton/nodejs-example-app). After installation, you can (optionaly) add your workflows and some examples of input and event in the `public/config.json` file. eg.
+We have provided an [example app](https://github.com/zenaton/nodejs-example-app) with basic UI to dispatch workflows and events with associated data to your Zenaton project. After installation, you can (optionaly) add your workflows and some examples of input and event in the `public/config.json` file. eg.
 ````json
 {
   "workflows": [
