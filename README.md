@@ -1,6 +1,6 @@
 # Nurturing A Non-Activated User 
 
-Here is a sample Zenaton project that sends emails to a new user, while he/she is not activated. This workflow should be dispatched typically after registration and will complete after user activation or by reaching the end of the emails' sequence.
+Here is a sample Zenaton project that sends a sequence of emails to a new user if they have not completed the activation (event) within an application. This workflow would normally be dispatched when a user registers and would terminate after user activates or after completing the the emails' sequence.
 
 Note: the task that sends emails is fake but can easily be coded using the API of your preferred email provider.
 
@@ -38,7 +38,7 @@ Look at Zenaton documentation to learn how to implement [workflows](https://docs
 
 ## Run 
 
-You can dispatch tasks and workflows by name from everywhere using [Zenaton API](https://docs.zenaton.com/client/graphql-api/). They will be processed as soon as you run this project.
+A workflow or Zenaton task can be run from within any application using the [Zenaton API](https://docs.zenaton.com/client/graphql-api/). They will be processed as soon as you run this project.
 
 > Note: tasks and workflows are dispatched in an environment (`AppEnv`) of your Zenaton application (`AppId`). They will be processed by this project, **if** you setup it with the same `AppId` and `AppEnv`. You must also provide an `Api Token` to authorize access to this application (found at https://app.zenaton.com/api)
 
@@ -128,6 +128,6 @@ You can use also the UI of our [example app](https://github.com/zenaton/nodejs-e
 ````
 > You need to rebuild your example app after having modified this file. If you prefer, you can update directly `dist/config.json` and simply reload the page - but your changes will be lost at the next rebuild.
 
-## Monitoring Tasks and Worklows Processing
+## Monitoring Tasks and Workflows Processing
 
 Look at your [dashboard](https://app.zenaton.com/workflows/) (if you do not see your dispatched tasks or workflows, please check that you have selected the right application and environment).
