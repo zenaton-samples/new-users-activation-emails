@@ -1,6 +1,10 @@
 # Nurturing A Non-Activated User 
 
-Here is a sample Zenaton project that sends a sequence of emails to a new user if they have not completed the activation (event) within an application. This workflow would normally be dispatched when a user registers and would terminate after user activates or after completing the the emails' sequence.
+Here is a sample Zenaton project that sends a sequence of emails to a new user if they have not completed a designated activation 'event' within an application.  This might be installing something or completing a task or creating their first project. 
+
+A workflow instance would be dispatched for the user when they register and then immediately start a series of 'wait' steps in which the workflow waits for a designated time for the user to complete the activation.  After each wait, if the event has not been received, the workflow triggers a step that sends an email offering help. 
+
+If the user completes the activation event, then we send a congratulatory email and send an internal slack message to notify the team.  
 
 Note: the task that sends emails is fake but can easily be coded using the API of your preferred email provider.
 
@@ -75,7 +79,7 @@ cd docker && docker-compose up
 
 Follow this button [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy), then fill in the env variables and click "deploy".
 
-### Run somewhere else
+### Run on other hosting solutions
 
 Check our [documentation](https://docs.zenaton.com/going-to-production/) for more options (AWS, Google Cloud, Clever Cloud ...)
 
