@@ -1,5 +1,6 @@
 # Nurturing A Non-Activated User 
 
+## Overview
 Here is a sample Zenaton project that sends a sequence of emails to a new user if they have not completed a designated activation 'event' within an application.  This might be installing something or completing a task or creating their first project. 
 
 A workflow instance would be dispatched for the user when they register and then immediately start a series of 'wait' steps in which the workflow waits for a designated time for the user to complete the activation.  After each wait, if the event has not been received, the workflow triggers a step that sends an email offering help. 
@@ -7,6 +8,9 @@ A workflow instance would be dispatched for the user when they register and then
 If the user completes the activation event, then we send a congratulatory email and send an internal slack message to notify the team.  
 
 Note: the task that sends emails is fake but can easily be coded using the API of your preferred email provider.
+
+## Requirements
+A [Zenaton](https://www.zenaton.com/) account, API id and API key
 
 ## Workflow logic
 
