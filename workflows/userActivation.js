@@ -6,7 +6,8 @@ module.exports = {
     // Waiting for ACTIVATION_WAIT_1 seconds
     yield this.wait.for(1 * process.env.ACTIVATION_WAIT_1);
 
-    // If event not received, send an email to propose to read the docs
+    // If user does not activate within time frame, 
+   //send an email to propose to read the docs
     yield this.run.task('SendEmail', {
       to: user.email,
       subject: 'Need some help?',
@@ -16,7 +17,8 @@ module.exports = {
     // Waiting for ACTIVATION_WAIT_2 seconds
     yield this.wait.for(1 * process.env.ACTIVATION_WAIT_2);
 
-    // If event not received, send an email to propose to setup a call
+    // If user does not activate within time frame, 
+   //send an email to propose to setup a call
     yield this.run.task('SendEmail', {
       to: user.email,
       subject: 'Happy to discuss',
@@ -26,7 +28,8 @@ module.exports = {
     // Waiting for ACTIVATION_WAIT_3 seconds
     yield this.wait.for(1 * process.env.ACTIVATION_WAIT_3);
 
-    // If event not received, send an email to ask for feedback
+    // If user does not activate,
+   // send an email to ask for feedback
     yield this.run.task('SendEmail', {
       to: user.email,
       subject: 'What did happen?',
@@ -38,7 +41,7 @@ module.exports = {
       // Send an email to congratulate the user and give him resources for real examples.
       this.run.task('SlackUserActivated', `${this.user.email} is actived :)`);
 
-      // Send an email to congratulate the user and give him resources for real examples.
+      // Send an email to congratulate the user and offer resources for next steps.
       this.run.task('SendEmail', {
         to: this.user.email,
         subject: 'Congrats!',
